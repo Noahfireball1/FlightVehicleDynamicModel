@@ -16,8 +16,7 @@ outputDir = append(projectRoot,filesep,'output',filesep);
 initialText;
 
 %% Selecting Configuration File
-inputFile = uigetfile('*.yaml','Select Input File',configDir);
-inputFilePath = append(configDir,inputFile);
+
 
 %% Initializing Simulation
 initializeSim;
