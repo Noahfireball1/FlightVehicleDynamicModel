@@ -77,6 +77,14 @@ if config.general.verbose
     printText(6);
 end
 
+wind = config.noise.FVDM.wind;
+gravity = config.noise.FVDM.gravity;
+aero = config.noise.FVDM.aero;
+engine = config.noise.FVDM.engine;
+
+IMU1 = config.noise.IMU1;
+IMU2 = config.noise.IMU2;
+IMU3 = config.noise.IMU3;
 
 
 function printText(option)
