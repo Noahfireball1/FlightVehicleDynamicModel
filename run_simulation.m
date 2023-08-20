@@ -16,7 +16,8 @@ outputDir = append(projectRoot,filesep,'output',filesep);
 initialText;
 
 %% Selecting Configuration File
-
+inputFile = uigetfile({'*.yaml'},'Select Input File',configDir);
+inputFilePath = append(configDir,inputFile);
 
 %% Initializing Simulation
 initializeSim;
@@ -26,58 +27,76 @@ simText;
 
 for i = 1:numRuns
 
-currentSeed = randi(1e6,1);
+    currentSeed = randi(1e6,1);
 
-run = sim("DA40_Flight_Model.slx");
+    run = sim("DA40_Flight_Model.slx");
 
-time = (Start_Time:Time_Step:End_Time)';
-imuTime = (Start_Time:imuTimeStep:End_Time)';
+    time = (Start_Time:Time_Step:End_Time)';
+    imuTime = (Start_Time:imuTimeStep:End_Time)';
 
-figure
-tiledlayout(3,1)
-nexttile
-hold on
-plot(imuTime,run.ACC1(:,1))
-plot(imuTime,run.ACC2(:,1))
-plot(imuTime,run.ACC3(:,1))
-plot(time,run.noiseACC(:,1))
+    figure
+    tiledlayout(3,1)
+    nexttile
+    hold on
+    plot(imuTime,run.ACC1(:,1))
+    plot(imuTime,run.ACC2(:,1))
+    plot(imuTime,run.ACC3(:,1))
+    plot(time,run.noiseACC(:,1))
 
-nexttile
-hold on
-plot(imuTime,run.ACC1(:,2))
-plot(imuTime,run.ACC2(:,2))
-plot(imuTime,run.ACC3(:,2))
-plot(time,run.noiseACC(:,2))
+    nexttile
+    hold on
+    plot(imuTime,run.ACC1(:,2))
+    plot(imuTime,run.ACC2(:,2))
+    plot(imuTime,run.ACC3(:,2))
+    plot(time,run.noiseACC(:,2))
 
-nexttile
-hold on
-plot(imuTime,run.ACC1(:,3))
-plot(imuTime,run.ACC2(:,3))
-plot(imuTime,run.ACC3(:,3))
-plot(time,run.noiseACC(:,3))
+    nexttile
+    hold on
+    plot(imuTime,run.ACC1(:,3))
+    plot(imuTime,run.ACC2(:,3))
+    plot(imuTime,run.ACC3(:,3))
+    plot(time,run.noiseACC(:,3))
 
-figure
-tiledlayout(3,1)
-nexttile
-hold on
-plot(imuTime,run.GYRO1(:,1))
-plot(imuTime,run.GYRO2(:,1))
-plot(imuTime,run.GYRO3(:,1))
-plot(time,run.noiseGYRO(:,1))
+    figure
+    tiledlayout(3,1)
+    nexttile
+    hold on
+    plot(imuTime,run.GYRO1(:,1))
+    plot(imuTime,run.GYRO2(:,1))
+    plot(imuTime,run.GYRO3(:,1))
+    plot(time,run.noiseGYRO(:,1))
 
-nexttile
-hold on
-plot(imuTime,run.GYRO1(:,2))
-plot(imuTime,run.GYRO2(:,2))
-plot(imuTime,run.GYRO3(:,2))
-plot(time,run.noiseGYRO(:,2))
+    nexttile
+    hold on
+    plot(imuTime,run.GYRO1(:,2))
+    plot(imuTime,run.GYRO2(:,2))
+    plot(imuTime,run.GYRO3(:,2))
+    plot(time,run.noiseGYRO(:,2))
 
-nexttile
-hold on
-plot(imuTime,run.GYRO1(:,3))
-plot(imuTime,run.GYRO2(:,3))
-plot(imuTime,run.GYRO3(:,3))
-plot(time,run.noiseGYRO(:,3))
+    nexttile
+    hold on
+    plot(imuTime,run.GYRO1(:,3))
+    plot(imuTime,run.GYRO2(:,3))
+    plot(imuTime,run.GYRO3(:,3))
+    plot(time,run.noiseGYRO(:,3))
+
+    figure('units','normalized','outerposition',[0 0 1 1])
+    geoplot(run.trueLAT,run.trueLONG,'--k','LineWidth',2)
+    hold on
+    geoplot(run.noiseLAT,run.noiseLONG,'LineWidth',1.5)
+
+    figure
+    plot(time,run.trueALT,'--k','LineWidth',2)
+    hold on
+    plot(time,run.noiseALT)
+
+    %% Saving Files
+    if saveResults
+        
+        fileName = sprintf('%i_%s',i,inputFile(1:end-5));
+        filePath = append(outputDir,fileName,'.mat');
+        save(filePath,"run")
+    end
 
 end
 

@@ -55,12 +55,12 @@ end
 Prop = load("DA40PROP.mat");
 Prop = Prop.Prop;
 
-waypoints = load(sprintf('%s.mat',config.aircraft.waypoints));
-waypoints = waypoints.waypoints;
+selWaypoints = load(sprintf('%s.mat',config.aircraft.waypoints));
+waypoints = selWaypoints.waypoints;
 lookaheadDist = aircraft.lookaheadDistance;
 
 
-refLLA = [aircraft.initialState.latitude aircraft.initialState.longitude];
+refLLA = selWaypoints.refLL;
 Initial_X = [aircraft.initialState.u;...
     aircraft.initialState.v;...
     aircraft.initialState.w;...

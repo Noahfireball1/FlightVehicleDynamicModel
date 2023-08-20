@@ -5,7 +5,6 @@ figure('units','normalized','outerposition',[0 0 1 1])
 geoplot(sim.trueLAT,sim.trueLONG,'--k','LineWidth',2)
 hold on
 geoplot(sim.noiseLAT,sim.noiseLONG,'LineWidth',1.5)
-geoplot(sim.GPSLLA(:,1),sim.GPSLLA(:,2),'LineWidth',1.5)
 
 %% States
 figure('units','normalized','outerposition',[0 0 1 1])
