@@ -4,7 +4,7 @@ general:
   month: 12
   day: 22
   verbose: 1
-  numMonteCarloRuns: 2 # 1 specifies no monte carlo analysis
+  numMonteCarloRuns: 1 # 1 specifies no monte carlo analysis
   save: 1
   outputDir: # If user wants to output result files to an external drive, otherwise save to current output directory
 aircraft:
