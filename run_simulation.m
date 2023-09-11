@@ -7,22 +7,26 @@ format shortg
 %% Adding Directories Based on User's Paths
 projectRoot = fileparts(which(mfilename));
 addpath(genpath(projectRoot))
-configDir = append(projectRoot,filesep,'config',filesep);
-srcDir = append(projectRoot,filesep,'source',filesep);
-waypointsDir = append(projectRoot,filesep,'waypoints',filesep);
-outputDir = append(projectRoot,filesep,'output',filesep);
+dir.config = append(projectRoot,filesep,'config',filesep);
+dir.src = append(projectRoot,filesep,'source',filesep);
+dir.rinex = append(dir.src,'Satellites',filesep,'rinex',filesep);
+dir.waypoints = append(projectRoot,filesep,'waypoints',filesep);
+dir.output = append(projectRoot,filesep,'output',filesep);
 
 %% Initial Text to Console
 initialText;
 
 %% Selecting Configuration File
-inputFile = uigetfile({'*.yaml'},'Select Input File',configDir);
-inputFilePath = append(configDir,inputFile);
+inputFile = uigetfile({'*.yaml'},'Select Input File',dir.config);
+inputFilePath = append(dir.config,inputFile);
 
 %% Initializing Simulation
 initializeSim;
 %% Starting Simulation
 simText;
+
+% Generating Satellite States
+satStates = genSatellitesStates(End_Time,date,dir);
 
 run = sim("DA40_Flight_Model.slx");
 

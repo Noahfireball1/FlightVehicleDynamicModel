@@ -3,7 +3,7 @@ config = ReadYaml(inputFilePath);
 general = config.general;
 aircraft = config.aircraft;
 
-tableDir = append(srcDir,'tables',filesep);
+tableDir = append(dir.src,'tables',filesep);
 
 date = datetime(general.year,general.month,general.day);
 dayofyear = day(date,"dayofyear");
