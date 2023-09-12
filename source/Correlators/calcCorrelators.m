@@ -3,7 +3,7 @@ cn0 = 10^(45/10);
 pdiTime = 1/50;
 offset = 0.5;
 
-whiteNoise = randn(1);
+whiteNoise = randn(1,6);
 noise = sqrt(1/cn0/pdiTime)*whiteNoise;
 
 IP = sqrt(2* cn0* pdiTime).*sinc((carrFreqError).* pdiTime*2*pi).*(1 - abs(codePhaseError)).*cos(carrFreqError) + noise(1);

@@ -1,10 +1,8 @@
-function R = formR(variance)
+function R = formR(varPsr,varCarr)
 count = 1;
 Rtmp = [];
-varCarr = variance(length(variance)/2:end);
-varPsr = variance(1:length(variance)/2);
 
-for i = 1:2:length(obj.y)
+for i = 1:2:2*length(varPsr)
 
     Rtmp = [Rtmp varCarr(count) varPsr(count)];
 
