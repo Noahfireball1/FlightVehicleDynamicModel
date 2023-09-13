@@ -35,8 +35,12 @@ refLLA = flat2lla(run.rcvrStates(:,7:9),refLLA,0,0,'WGS84');
 
 
 %% Plotting
-geoplot(refLLA(1:8:end,1),refLLA(1:8:end,2))
+figure
+geoplot(refLLA(:,1),refLLA(:,2))
 hold on 
 geoplot(estLLA(:,1),estLLA(:,2))
+
+
+
 
 

@@ -1,6 +1,6 @@
 function [estimatedStates,refStates,estimatedCovariance] = VectorTracking(predictedStates,receiverStates,predictedCovariance,satelliteStates,time,refLLA)
 
-Q  = diag([0.0001 0.0001 0.0001 1e-6 1e-6 1e-6 1e-3 1e-3 1e-3 1e-5 1e-5 1e-5 1e-7 1e-8]);
+Q  = diag([0.1 0.1 0.1 1e-6 1e-6 1e-6 1 1 1 1e-5 1e-5 1e-5 1e-7 1e-8]);
 timeStep = 1/400;
 
 %% Time Update
