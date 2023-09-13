@@ -1,4 +1,4 @@
-function [estimatedStates,estimatedCovariance] = VectorTracking(predictedStates,receiverStates,predictedCovariance,satelliteStates,time,refLLA)
+function [estimatedStates,refStates,estimatedCovariance] = VectorTracking(predictedStates,receiverStates,predictedCovariance,satelliteStates,time,refLLA)
 
 Q  = diag([0.0001 0.0001 0.0001 1e-6 1e-6 1e-6 1e-3 1e-3 1e-3 1e-5 1e-5 1e-5 1e-7 1e-8]);
 timeStep = 1/400;
@@ -10,12 +10,15 @@ PHI = calcJacobian(predictedStates,timeStep);
 
 estimatedCovariance = PHI*predictedCovariance*PHI' + Q;
 
+refStates = receiverStates;
+
 %% Measurement Update
 
 if mod(time,1/50) == 0
 
     % Convert Receiver States to ECEF
     refStates = flat2ecef(refLLA,receiverStates);
+    refStates = refStates + randn(12,1).*[0.15;0.15;0.15;0;0;0;1.5;1.5;3.0;0;0;0];
 
     % Convert Predicted States to ECEF
     estStates = flat2ecef(refLLA,predictedStates);
@@ -52,7 +55,7 @@ if mod(time,1/50) == 0
 
     % Convert States Back to Flat Earth Frame
     estimatedStates = ecef2flat(refLLA,estStates);
-
+    refStates = ecef2flat(refLLA,refStates);
 end
 
 end
